@@ -7,8 +7,17 @@
         {% endfor %}
     </nav>
     <div>
-        <a href="">Iniciar sesion</a>
-        <a href="">Registrarse</a>
+        {% if user.is_authenticated %}
+        <ul>
+            {{user.nombre}}
+            {{user.email}}
+            <a><li>Mi perfil</li></a>
+            <a href="{% url 'cerrar' %}"><li>Cerrar sesion</li></a>
+        </ul>
+        {% else %}
+        <a href="{% url 'login' %}">Iniciar sesion</a>
+        <a href="{% url 'registro' %}">Registrarse</a>
+        {% endif %}
     </div>
 </header>
 <a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" width="200"></a>

@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from .models import *
+from .forms import RegisterForm, LoginForm
 from datetime import datetime
 
 # Create your views here.
@@ -53,3 +55,30 @@ def profile(request, name_autor):
         return render(request, "profile.html", context)
     except CustomUser.DoesNotExist:
         return redirect('index')
+    
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Puedes redirigir a donde quieras después del registro exitoso
+            return redirect('index')
+    else:
+        form = RegisterForm()
+    return render(request, 'registro.html', {'form': form})
+
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = request.POST['username']
+            password = request.method = ['password']
+        else:
+            form = RegisterForm()
+    else:
+        return render(request, 'login.html', {'form': form})
+
+
+def unlogin(request):
+    logout(request)
+    return render(request, "index.html")
