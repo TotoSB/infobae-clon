@@ -1,6 +1,14 @@
+{% load static %}
 <header>
-    {% load static %}
-    {% for theme in themes %}
-        <a href="">{{theme.name}}</a>
-    {% endfor %}
+    {{today}}
+    <nav>
+        {% for theme in themes %}
+        <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+        {% endfor %}
+    </nav>
+    <div>
+        <a href="">Iniciar sesion</a>
+        <a href="">Registrarse</a>
+    </div>
 </header>
+<a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" width="200"></a>

@@ -25,7 +25,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     nombre = models.CharField(max_length=255)
     descripcion = models.CharField(max_length=650)
-    logo = models.ImageField(upload_to="media/users/%Y/%m/%d/", blank=True, null=True)
+    logo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     groups = models.ManyToManyField(
@@ -59,10 +59,13 @@ class Themes(models.Model):
 class Posts(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=150)
+    image_banner = models.ImageField(upload_to="posts/%Y/%m/%d/")
+    short_description = models.CharField(max_length=400)
     description = models.CharField(max_length=100000)
     author = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     theme = models.ManyToManyField(Themes)
+    featured = models.BooleanField(default=False)
 
     def __str__(self):
         return f'Autor: {self.author.nombre}, Titulo: {self.title}'

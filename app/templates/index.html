@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/header_style.css' %}">
     <title>Document</title>
 </head>
 <body>
-    {% load static %}
     {% include "header.html" %}
-    <img src="{% static 'images/logo.png' %}" width="200">
     {% for post in posts %}
         <h1>{{post.title}}</h1>
-        <p>Por {{post.author.nombre}}</p>
+        <a href="{% url 'index'%}"><img src="/media/{{post.image_banner}}"></a>
+        <p>{{post.short_description}}</p>
+        <p>Por <b><a href="{% url 'profile' post.author.nombre%}">{{post.author.nombre}}</a></b></p>
     {% endfor %}
 </body>
 </html>
