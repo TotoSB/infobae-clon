@@ -86,4 +86,4 @@ def login(request):
 
 def unlogin(request):
     logout(request)
-    return render(request, "index.html")
+    return redirect('index')
