@@ -3,13 +3,13 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import *
 from .forms import RegisterForm, LoginForm
 from datetime import datetime
+today = datetime.now()
+formatted_date = today.strftime("%d %b, %Y").replace('Jan', 'Ene').replace('Feb', 'Feb').replace('Mar', 'Mar').replace('Apr', 'Abr').replace('May', 'May').replace('Jun', 'Jun').replace('Jul', 'Jul').replace('Aug', 'Ago').replace('Sep', 'Sep').replace('Oct', 'Oct').replace('Nov', 'Nov').replace('Dec', 'Dic')
+themes = Themes.objects.all()
 
 # Create your views here.
 def index(request):
     postings = Posts.objects.all()
-    themes = Themes.objects.all()
-    today = datetime.now()
-    formatted_date = today.strftime("%d %b, %Y").replace('Jan', 'Ene').replace('Feb', 'Feb').replace('Mar', 'Mar').replace('Apr', 'Abr').replace('May', 'May').replace('Jun', 'Jun').replace('Jul', 'Jul').replace('Aug', 'Ago').replace('Sep', 'Sep').replace('Oct', 'Oct').replace('Nov', 'Nov').replace('Dec', 'Dic')
 
     # images_first = ImagesPosts.objects.get(order=1)
     context = {
@@ -28,8 +28,6 @@ def theme_view(request, theme_name):
         themes = Themes.objects.all()
         # Filtramos los posts que tienen ese tema
         news = Posts.objects.filter(theme=theme_get)
-        today = datetime.now()
-        formatted_date = today.strftime("%d %b, %Y").replace('Jan', 'Ene').replace('Feb', 'Feb').replace('Mar', 'Mar').replace('Apr', 'Abr').replace('May', 'May').replace('Jun', 'Jun').replace('Jul', 'Jul').replace('Aug', 'Ago').replace('Sep', 'Sep').replace('Oct', 'Oct').replace('Nov', 'Nov').replace('Dec', 'Dic')
 
         context = {
             'posts': news,
@@ -44,9 +42,6 @@ def theme_view(request, theme_name):
 def profile(request, name_autor):
     try:
         profile_get = CustomUser.objects.get(nombre=name_autor)
-        today = datetime.now()
-        formatted_date = today.strftime("%d %b, %Y").replace('Jan', 'Ene').replace('Feb', 'Feb').replace('Mar', 'Mar').replace('Apr', 'Abr').replace('May', 'May').replace('Jun', 'Jun').replace('Jul', 'Jul').replace('Aug', 'Ago').replace('Sep', 'Sep').replace('Oct', 'Oct').replace('Nov', 'Nov').replace('Dec', 'Dic')
-
 
         context = {
             "user_get": profile_get,
@@ -81,9 +76,16 @@ def login(request):
                 form.add_error(None, 'Nombre de usuario o contraseña incorrectos.')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    context = {
+        'themes': themes,
+        'today': formatted_date
+    }
+    return render(request, 'login.html', {'form': form, 'context': context})
 
 
 def unlogin(request):
     logout(request)
+    return redirect('index')
+
+def create_post(request):
     return redirect('index')
