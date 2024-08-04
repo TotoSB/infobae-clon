@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import *
 from .forms import RegisterForm, LoginForm
 from datetime import datetime
@@ -71,12 +71,17 @@ def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            username = request.POST['username']
-            password = request.method = ['password']
-        else:
-            form = RegisterForm()
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(email=email, password=password)
+            if user is not None:
+                auth_login(request, user)
+                return redirect('index')
+            else:
+                form.add_error(None, 'Nombre de usuario o contraseña incorrectos.')
     else:
-        return render(request, 'login.html', {'form': form})
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
 
 
 def unlogin(request):
