@@ -18,6 +18,11 @@
         <a href="{% url 'login' %}">Iniciar sesion</a>
         <a href="{% url 'registro' %}">Registrarse</a>
         {% endif %}
+        {% if user.is_staff %}
+        <ul>
+            <a href="{% url 'create_post' %}"><li>Crear noticia</li></a>
+        </ul>
+        {% endif %}
     </div>
 </header>
 <a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" width="200"></a>

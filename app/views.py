@@ -92,3 +92,14 @@ def login(request):
 def unlogin(request):
     logout(request)
     return redirect('index')
+
+def create_post(request):
+    user = request.user
+    context = {
+        "themes": themes,
+        'today': formatted_date
+    }
+    if user.is_staff == True:
+        return render(request, 'panel/create_post.html', context)
+    else:
+        return redirect('index')
