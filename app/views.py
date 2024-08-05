@@ -60,7 +60,12 @@ def register(request):
             return redirect('index')
     else:
         form = RegisterForm()
-    return render(request, 'registro.html', {'form': form})
+    context = {
+        "themes": themes,
+        'today': formatted_date
+    }
+    context['form'] = form
+    return render(request, 'registro.html', context)
 
 def login(request):
     if request.method == 'POST':
@@ -77,10 +82,11 @@ def login(request):
     else:
         form = LoginForm()
     context = {
-        'themes': themes,
+        "themes": themes,
         'today': formatted_date
     }
-    return render(request, 'login.html', {'form': form, 'context': context})
+    context['form'] = form
+    return render(request, 'login.html', context)
 
 
 def unlogin(request):
