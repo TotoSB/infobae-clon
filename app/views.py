@@ -92,6 +92,3 @@ def login(request):
 def unlogin(request):
     logout(request)
     return redirect('index')
-
-def create_post(request):
-    return redirect('index')
