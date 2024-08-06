@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,18 +10,26 @@
     {% include "header.html" %}
     <form method="post">
         {% csrf_token %}
-        <label>Titulo:</label>
-        <input type="text" name="" id="">
-        <label>Descripcion corta:</label>
-        <input type="text" name="" id="">
-        <label>Temas:</label>
+        <label for="titulo">Titulo:</label>
+        <input type="text" name="titulo" id="titulo">
+        <label for="img-principal">Imagen principal:</label>
+        <input type="file" accept="image/*" name="img-principal" alt="">
+        <label for="descripcion-corta">Descripcion corta:</label>
+        <input type="text" name="descripcion-corta" id="descripcion-corta">
+        <label for="descripcion">Descripcion:</label>
+        <input type="text" name="descripcion" id="descripcion">
+        <div id="cont-media">
+
+        </div>
+        <label for="opciones">Temas:</label>
         {% for theme in themes %}
-            <input type="checkbox" name="{{theme.name}}" id="">
+            <input type="checkbox" name="opciones" id="{{theme.name}}" value="{{theme.name}}">
             <label for="{{theme.name}}">{{theme.name}}</label>
         {% endfor %}
-        <label>Destacada:</label>
-        <input type="checkbox" name="" id="">
+        <label for="destacada">Destacada:</label>
+        <input type="checkbox" name="destacada" id="destacada">
         <input type="submit" value="Crear">
     </form>
+    <script src="{% static 'js/create_post.js' %}"></script>
 </body>
 </html>

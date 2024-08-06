@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import *
 from .forms import RegisterForm, LoginForm
 from datetime import datetime
+from django.http import HttpResponse
 
 
 today = datetime.now()
@@ -87,7 +88,57 @@ def unlogin(request):
 def create_post(request):
     user = request.user
 
-    if user.is_staff == True:
+    if user.is_staff:
+        if request.method == 'POST':
+            # Obtención de datos del formulario
+            title = request.POST.get('titulo')
+            desc_short = request.POST.get('descripcion-corta')
+            imagebanner = request.FILES.get('img-principal')
+            desc_large = request.POST.get('descripcion')
+            themes = request.POST.getlist('opciones')
+            featured = request.POST.get('destacada') == 'on'
+
+            # Crear y guardar el nuevo objeto Post
+            post = Posts(
+                title=title,
+                short_description=desc_short,
+                description=desc_large,
+                featured=featured,
+                image_banner=imagebanner,
+                author= request.user
+            )
+
+            # Manejo de imágenes adicionales
+            img_urls = []
+            for key in request.FILES.keys():
+                if key.startswith('media-'):
+                    img_file = request.FILES.get(key)
+                    if img_file:
+                        # Guarda la imagen en el modelo ImagesPosts
+                        img_post = ImagesPosts.objects.create(
+                            content=img_file,
+                            order=int(key.split('-')[1]),  # Extrae el número del nombre del campo
+                            post=post
+                        )
+                        img_urls.append(img_post.content.url)
+                        img_post.save()
+
+            # Reemplaza las palabras clave en la descripción con el HTML de las imágenes
+            for i, url in enumerate(img_urls):
+                desc_large = desc_large.replace(f'img-{i+1}', f'<img src="{url}" alt="Imagen {i+1}">')
+
+            post.description = desc_large
+
+            # Asociar temas al post
+            for theme_name in themes:
+                try:
+                    theme = Themes.objects.get(name=theme_name)
+                    post.theme.add(theme)
+                except Themes.DoesNotExist:
+                    pass  # Manejar si el tema no existe
+            post.save()
+
         return render(request, 'panel/create_post.html', context)
+
     else:
         return redirect('index')

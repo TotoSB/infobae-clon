@@ -62,7 +62,7 @@ class Posts(models.Model):
     image_banner = models.ImageField(upload_to="posts/%Y/%m/%d/")
     short_description = models.CharField(max_length=400)
     description = models.CharField(max_length=100000)
-    author = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     theme = models.ManyToManyField(Themes)
     featured = models.BooleanField(default=False)
