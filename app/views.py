@@ -142,3 +142,11 @@ def create_post(request):
             
 
     return redirect('index')
+
+def view_post(request, pk):
+    if Posts.objects.get(id=pk):
+        context['post_get'] = Posts.objects.get(id=pk)
+
+        return render(request, 'post.html', context)
+    else:
+        return redirect('index')

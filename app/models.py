@@ -71,7 +71,7 @@ class Posts(models.Model):
     description = models.CharField(max_length=100000)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    main_theme = models.ForeignKey(mainThemes, on_delete=models.DO_NOTHING)
+    main_theme = models.ForeignKey(mainThemes, on_delete=models.DO_NOTHING, null=True)
     theme = models.ManyToManyField(Themes)
     featured = models.BooleanField(default=False)
 

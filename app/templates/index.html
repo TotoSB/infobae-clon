@@ -10,10 +10,12 @@
 <body>
     {% include "header.html" %}
     {% for post in posts %}
-        <h1>{{post.title}}</h1>
-        <a href="{% url 'index'%}"><img src="/media/{{post.image_banner}}"></a>
-        <p>{{post.short_description}}</p>
-        <p>Por <b><a href="{% url 'profile' post.author.nombre%}">{{post.author.nombre}}</a></b></p>
+        <a href="{% url 'view_post' post.id %}">
+            <h1>{{post.title}}</h1>
+            <a href="{% url 'index'%}"><img src="/media/{{post.image_banner}}"></a>
+            <p>{{post.short_description}}</p>
+            <p>Por <b><a href="{% url 'profile' post.author.nombre%}">{{post.author.nombre}}</a></b></p>
+        </a>
     {% endfor %}
 </body>
 </html>

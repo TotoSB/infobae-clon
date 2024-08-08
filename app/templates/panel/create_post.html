@@ -25,8 +25,12 @@
         <div id="cont-media">
             <!-- Los inputs de archivo adicionales se agregarán aquí -->
         </div>
+
+        <label>
+            
+        </label>
         
-        <label for="opciones">Temas:</label>
+        <label for="opciones">Sub-Temas:</label>
         {% for theme in themes %}
             <input type="checkbox" name="opciones" id="{{theme.name}}" value="{{theme.name}}">
             <label for="{{theme.name}}">{{theme.name}}</label>
