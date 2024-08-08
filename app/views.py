@@ -8,7 +8,7 @@ from django.http import HttpResponse
 
 today = datetime.now()
 formatted_date = today.strftime("%d %b, %Y").replace('Jan', 'Ene').replace('Feb', 'Feb').replace('Mar', 'Mar').replace('Apr', 'Abr').replace('May', 'May').replace('Jun', 'Jun').replace('Jul', 'Jul').replace('Aug', 'Ago').replace('Sep', 'Sep').replace('Oct', 'Oct').replace('Nov', 'Nov').replace('Dec', 'Dic')
-themes = Themes.objects.all()
+themes = mainThemes.objects.all()
 
 context = {
         "themes": themes,
@@ -31,11 +31,11 @@ def index(request):
 def theme_view(request, theme_name):
     try:
         # Comprobamos si existe el tema recibido
-        theme_get = Themes.objects.get(name=theme_name)
+        theme_get = mainThemes.objects.get(name=theme_name)
         #Enviamos todos los temas luego de la validacion
-        themes = Themes.objects.all()
+        themes = mainThemes.objects.all()
         # Filtramos los posts que tienen ese tema
-        news = Posts.objects.filter(theme=theme_get)
+        news = Posts.objects.filter(main_theme=theme_get)
 
         context['posts'] = news
 
