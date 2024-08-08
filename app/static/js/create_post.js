@@ -13,8 +13,15 @@ function verificarArchivo(element_get) {
         input_new.setAttribute('id', 'media-' + num);
 
         const label = document.createElement('label');
-        label.textContent = "Imagen: "+num;
-        div.appendChild(label)
+        label.textContent = "Imagen " + num + ": ";
+
+        const textarea = document.getElementById('descripcion');
+        const cursorPosition = textarea.selectionStart;
+        const marker = `<!--img-${num}-->`;
+
+        textarea.value = textarea.value.slice(0, cursorPosition) + marker + textarea.value.slice(cursorPosition);
+
+        div.appendChild(label);
         div.appendChild(input_new);
     }
 }
@@ -26,10 +33,10 @@ window.onload = function() {
     inputInicial.setAttribute('name', 'media-1');
     inputInicial.setAttribute('id', 'media-1');
 
-
     const label = document.createElement('label');
     label.textContent = "Imagen 1: ";
 
-    document.getElementById('cont-media').appendChild(label);
-    document.getElementById('cont-media').appendChild(inputInicial);
+    const div = document.getElementById('cont-media');
+    div.appendChild(label);
+    div.appendChild(inputInicial);
 };

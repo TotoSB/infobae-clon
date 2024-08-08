@@ -105,29 +105,31 @@ def create_post(request):
                 description=desc_large,
                 featured=featured,
                 image_banner=imagebanner,
-                author= request.user
+                author=user
             )
+            post.save()
 
             # Manejo de imágenes adicionales
-            img_urls = []
+            img_urls = {}
             for key in request.FILES.keys():
                 if key.startswith('media-'):
                     img_file = request.FILES.get(key)
                     if img_file:
                         # Guarda la imagen en el modelo ImagesPosts
+                        order = int(key.split('-')[1])
                         img_post = ImagesPosts.objects.create(
                             content=img_file,
-                            order=int(key.split('-')[1]),  # Extrae el número del nombre del campo
+                            order=order,
                             post=post
                         )
-                        img_urls.append(img_post.content.url)
-                        img_post.save()
+                        img_urls[f'img-{order}'] = img_post.content.url
 
-            # Reemplaza las palabras clave en la descripción con el HTML de las imágenes
-            for i, url in enumerate(img_urls):
-                desc_large = desc_large.replace(f'img-{i+1}', f'<img src="{url}" alt="Imagen {i+1}">')
+            # Reemplaza los marcadores en la descripción con el HTML de las imágenes
+            for marker, url in img_urls.items():
+                desc_large = desc_large.replace(f'<!--{marker}-->', f'<img src="{url}" alt="Imagen {marker}">')
 
             post.description = desc_large
+            post.save()
 
             # Asociar temas al post
             for theme_name in themes:
@@ -136,9 +138,7 @@ def create_post(request):
                     post.theme.add(theme)
                 except Themes.DoesNotExist:
                     pass  # Manejar si el tema no existe
-            post.save()
-
         return render(request, 'panel/create_post.html', context)
+            
 
-    else:
-        return redirect('index')
+    return redirect('index')

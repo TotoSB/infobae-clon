@@ -73,4 +73,4 @@ class Posts(models.Model):
 class ImagesPosts(models.Model):
     content = models.ImageField(upload_to="posts/%Y/%m/%d/")
     order = models.IntegerField()
-    post = models.OneToOneField(Posts, on_delete=models.CASCADE)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
