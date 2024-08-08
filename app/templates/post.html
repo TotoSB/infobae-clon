@@ -10,6 +10,7 @@
     {% include "header.html" %}
     {{post_get.title}}
     {{post_get.description}}
-    {{post_get.author}}
+    {{post_get.author.nombre}}
+    <img src="/media/{{post_get.image_banner}}">
 </body>
 </html>

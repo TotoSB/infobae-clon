@@ -40,7 +40,7 @@ def theme_view(request, theme_name):
         context['posts'] = news
 
         return render(request, "theme.html", context)
-    except Themes.DoesNotExist:
+    except mainThemes.DoesNotExist:
         return redirect('index')
     
 def profile(request, name_autor):
@@ -143,9 +143,12 @@ def create_post(request):
 
     return redirect('index')
 
-def view_post(request, pk):
-    if Posts.objects.get(id=pk):
-        context['post_get'] = Posts.objects.get(id=pk)
+def view_post(request, theme_name, pk):
+    if Posts.objects.get(id=pk) and Posts.objects.get(main_theme.name = theme_name):
+        post_get = Posts.objects.get(id=pk)
+        post_get.reads = post_get.reads + 1
+        context['post_get'] = post_get
+
 
         return render(request, 'post.html', context)
     else:

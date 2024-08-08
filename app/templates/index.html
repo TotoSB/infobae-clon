@@ -13,14 +13,23 @@
 
     </main>
     {% for post in posts %}
+    {% if post.featured == True %}
         <article>
-            <a href="{% url 'view_post' post.id %}">
+            <a href="{% url 'view_post' post.main_theme post.id %}">
                 <h1>{{post.title}}</h1>
-                <img src="/media/{{post.image_banner}}">
                 <p>{{post.short_description}}</p>
+                <img src="/media/{{post.image_banner}}">
                 <p>Por <b>{{post.author.nombre}}</b></p>
             </a>
         </article>
+    {% else %}
+    <article>
+        <a href="{% url 'view_post' post.main_theme post.id %}">
+            <h1>{{post.title}}</h1>
+            <img src="/media/{{post.image_banner}}">
+        </a>
+    </article>
+    {% endif %}
     {% endfor %}
 </body>
 </html>

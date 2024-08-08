@@ -74,6 +74,7 @@ class Posts(models.Model):
     main_theme = models.ForeignKey(mainThemes, on_delete=models.DO_NOTHING, null=True)
     theme = models.ManyToManyField(Themes)
     featured = models.BooleanField(default=False)
+    reads = models.IntegerField(default=0)
 
     def __str__(self):
         return f'Autor: {self.author.nombre}, Titulo: {self.title}'
