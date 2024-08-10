@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import *
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, PostsForm
 from datetime import datetime
 from django.http import HttpResponse
 
@@ -89,65 +89,27 @@ def create_post(request):
     user = request.user
 
     if user.is_staff:
+        # Define `form` antes de la condición POST
+        form = PostsForm()
+
         if request.method == 'POST':
-            # Obtención de datos del formulario
-            title = request.POST.get('titulo')
-            desc_short = request.POST.get('descripcion-corta')
-            imagebanner = request.FILES.get('img-principal')
-            desc_large = request.POST.get('descripcion')
-            themes = request.POST.getlist('opciones')
-            featured = request.POST.get('destacada') == 'on'
-
-            # Crear y guardar el nuevo objeto Post
-            post = Posts(
-                title=title,
-                short_description=desc_short,
-                description=desc_large,
-                featured=featured,
-                image_banner=imagebanner,
-                author=user
-            )
-            post.save()
-
-            # Manejo de imágenes adicionales
-            img_urls = {}
-            for key in request.FILES.keys():
-                if key.startswith('media-'):
-                    img_file = request.FILES.get(key)
-                    if img_file:
-                        # Guarda la imagen en el modelo ImagesPosts
-                        order = int(key.split('-')[1])
-                        img_post = ImagesPosts.objects.create(
-                            content=img_file,
-                            order=order,
-                            post=post
-                        )
-                        img_urls[f'img-{order}'] = img_post.content.url
-
-            # Reemplaza los marcadores en la descripción con el HTML de las imágenes
-            for marker, url in img_urls.items():
-                desc_large = desc_large.replace(f'<!--{marker}-->', f'<img src="{url}" alt="Imagen {marker}">')
-
-            post.description = desc_large
-            post.save()
-
-            # Asociar temas al post
-            for theme_name in themes:
-                try:
-                    theme = Themes.objects.get(name=theme_name)
-                    post.theme.add(theme)
-                except Themes.DoesNotExist:
-                    pass  # Manejar si el tema no existe
-        return render(request, 'panel/create_post.html', context)
-            
-
-    return redirect('index')
+            form = PostsForm(request.POST, request.FILES)
+            if form.is_valid():
+                postt = form.save(commit=False)
+                postt.author = request.user
+                postt.save()
+                return redirect('index')
+        
+        return render(request, 'panel/create_post.html', {'form': form})
+    else:
+        return redirect('index')
 
 def view_post(request, theme_name, pk):
-    if Posts.objects.get(id=pk) and Posts.objects.get(main_theme.name = theme_name):
-        post_get = Posts.objects.get(id=pk)
-        post_get.reads = post_get.reads + 1
+    post_get = get_object_or_404(Posts, id=pk)
+    if post_get.main_theme.name == theme_name:
+        post_get.reads =+ 1
         context['post_get'] = post_get
+        post_get.save()
 
 
         return render(request, 'post.html', context)

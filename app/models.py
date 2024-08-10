@@ -1,5 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 from django.db import models
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+import os
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
@@ -68,18 +73,14 @@ class Posts(models.Model):
     title = models.CharField(max_length=150)
     image_banner = models.ImageField(upload_to="posts/%Y/%m/%d/")
     short_description = models.CharField(max_length=400)
-    description = models.CharField(max_length=100000)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     main_theme = models.ForeignKey(mainThemes, on_delete=models.DO_NOTHING, null=True)
     theme = models.ManyToManyField(Themes)
     featured = models.BooleanField(default=False)
     reads = models.IntegerField(default=0)
+    descripcion = RichTextUploadingField()
 
     def __str__(self):
         return f'Autor: {self.author.nombre}, Titulo: {self.title}'
-
-class ImagesPosts(models.Model):
-    content = models.ImageField(upload_to="posts/%Y/%m/%d/")
-    order = models.IntegerField()
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    

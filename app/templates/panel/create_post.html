@@ -10,38 +10,8 @@
     {% include "header.html" %}
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <label for="titulo">Titulo:</label>
-        <input type="text" name="titulo" id="titulo">
-        
-        <label for="img-principal">Imagen principal:</label>
-        <input type="file" accept="image/*" name="img-principal" id="img-principal">
-        
-        <label for="descripcion-corta">Descripcion corta:</label>
-        <input type="text" name="descripcion-corta" id="descripcion-corta">
-        
-        <label for="descripcion">Descripcion:</label>
-        <textarea name="descripcion" id="descripcion" rows="10" cols="50"></textarea>
-        
-        <div id="cont-media">
-            <!-- Los inputs de archivo adicionales se agregarán aquí -->
-        </div>
-
-        <label>
-            
-        </label>
-        
-        <label for="opciones">Sub-Temas:</label>
-        {% for theme in themes %}
-            <input type="checkbox" name="opciones" id="{{theme.name}}" value="{{theme.name}}">
-            <label for="{{theme.name}}">{{theme.name}}</label>
-        {% endfor %}
-        
-        <label for="destacada">Destacada:</label>
-        <input type="checkbox" name="destacada" id="destacada">
-        
+        {{form.as_p}}
+        {{form.media}}
         <input type="submit" value="Crear">
-    </form>
-    
-    <script src="{% static 'js/create_post.js' %}"></script>
 </body>
 </html>

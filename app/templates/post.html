@@ -8,9 +8,13 @@
 </head>
 <body>
     {% include "header.html" %}
+    {% if post_get.author == user %}
+        <a>Delete</a>
+    {% endif %}
     {{post_get.title}}
     {{post_get.description}}
     {{post_get.author.nombre}}
     <img src="/media/{{post_get.image_banner}}">
+    {{post_get.descripcion | safe}}
 </body>
 </html>

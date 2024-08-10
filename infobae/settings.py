@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -129,4 +130,7 @@ AUTH_USER_MODEL = 'app.CustomUser'
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
