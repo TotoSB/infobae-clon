@@ -1,38 +1,44 @@
 {% load static %}
 <header>
-    {{today}}
-    <nav>
-        <form action="{% url 'search_post' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="q" id="q">
-            <button type="submit">Buscar</button>
-        </form>
-        {% for theme in themes %}
-        <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
-        {% endfor %}
-    </nav>
-    <div>
-        {% if user.is_authenticated %}
-        <ul>
-            {{user.nombre}}
-            {{user.email}}
-            <a><li>Mi perfil</li></a>
-            <a href="{% url 'cerrar' %}"><li>Cerrar sesion</li></a>
-        </ul>
-        {% else %}
-        <a href="{% url 'login' %}">Iniciar sesion</a>
-        <a href="{% url 'registro' %}">Registrarse</a>
-        {% endif %}
-        {% if user.is_staff %}
-        <ul>
-            <a href="{% url 'create_post' %}"><li>Crear noticia</li></a>
-        </ul>
-        {% endif %}
+    <div class="first-header">
+        <nav>
+            <form action="{% url 'search_post' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="q" id="q" placeholder="Buscar">
+                <button type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            <p id="fecha">{{today}}</p>
+            {% for theme in themes %}
+            <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+            {% endfor %}
+        </nav>
+        <div>
+            {% if user.is_authenticated %}
+            <ul>
+                {{user.nombre}}
+                {{user.email}}
+                <a><li>Mi perfil</li></a>
+                <a href="{% url 'cerrar' %}"><button>Cerrar sesion</button></a>
+            </ul>
+            {% else %}
+            <a href="{% url 'registro' %}"><button class="register btn">Registrarme</button></a>
+            <a href="{% url 'login' %}"><button class="login btn">Iniciar sesion</button></a>
+            {% endif %}
+            {% if user.is_staff %}
+            <ul>
+                <a href="{% url 'create_post' %}"><li>Crear noticia</li></a>
+            </ul>
+            {% endif %}
+        </div>
     </div>
-    {% for dolar in dollars %}
-    <li>Nombre: {{ dolar.nombre }} - Compra: {{ dolar.compra }}, venta: {{ dolar.venta }}</li>
-    {% empty %}
-        <li>No se encontraron datos.</li>
-    {% endfor %}          
+    <div>
+        <ul>
+            {% for dolar in dollars %}
+                <li>Nombre: {{ dolar.nombre }} - Compra: {{ dolar.compra }}, venta: {{ dolar.venta }}</li>
+            {% empty %}
+                <li>No se encontraron datos.</li>
+            {% endfor %}   
+        </ul>    
+    </div>   
 </header>
 <a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" width="200"></a>
