@@ -21,6 +21,7 @@ body {
     border-bottom: 1px solid var(--main);
     background-color: transparent;
     transition: background-color 0.3s;
+    width: 150px;
 }
 
 #q:focus {
@@ -86,4 +87,21 @@ body {
 .first-header {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#dollars {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto;
+}
+
+#dollars li {
+    font-family: "Roboto", sans-serif;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 20px;
 }

@@ -1,18 +1,15 @@
 {% load static %}
 <header>
-    <div class="first-header">
-        <nav>
-            <form action="{% url 'search_post' %}" method="post">
+    <nav class="first-header">
+        <form action="{% url 'search_post' %}" method="post">
                 {% csrf_token %}
                 <input type="text" name="q" id="q" placeholder="Buscar">
                 <button type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <p id="fecha">{{today}}</p>
             {% for theme in themes %}
-            <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+                <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
             {% endfor %}
-        </nav>
-        <div>
             {% if user.is_authenticated %}
             <ul>
                 {{user.nombre}}
@@ -25,19 +22,20 @@
             <a href="{% url 'login' %}"><button class="login btn">Iniciar sesion</button></a>
             {% endif %}
             {% if user.is_staff %}
-            <ul>
-                <a href="{% url 'create_post' %}"><li>Crear noticia</li></a>
-            </ul>
+            <div>
+                <ul>
+                    <a href="{% url 'create_post' %}"><li>Crear noticia</li></a>
+                </ul>
+            </div>
             {% endif %}
-        </div>
-    </div>
+    </nav>
     <div>
-        <ul>
+        <ul id="dollars">
             {% for dolar in dollars %}
-                <li>Nombre: {{ dolar.nombre }} - Compra: {{ dolar.compra }}, venta: {{ dolar.venta }}</li>
+                <li>{{ dolar.nombre }} <b>${{ dolar.venta }}</b></li>
             {% empty %}
                 <li>No se encontraron datos.</li>
-            {% endfor %}   
+            {% endfor %}
         </ul>    
     </div>   
 </header>
