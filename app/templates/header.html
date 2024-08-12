@@ -2,6 +2,11 @@
 <header>
     {{today}}
     <nav>
+        <form action="{% url 'search_post' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="q" id="q">
+            <button type="submit">Buscar</button>
+        </form>
         {% for theme in themes %}
         <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
         {% endfor %}
@@ -24,5 +29,10 @@
         </ul>
         {% endif %}
     </div>
+    {% for dolar in dollars %}
+    <li>Nombre: {{ dolar.nombre }} - Compra: {{ dolar.compra }}, venta: {{ dolar.venta }}</li>
+    {% empty %}
+        <li>No se encontraron datos.</li>
+    {% endfor %}          
 </header>
 <a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" width="200"></a>

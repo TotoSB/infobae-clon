@@ -4,17 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="{% static 'js/delete_post.js' %}"></script>
+    <title>{{post_get.title}}</title>
 </head>
 <body>
     {% include "header.html" %}
     {% if post_get.author == user %}
-        <a>Delete</a>
+        <a href="{% url 'delete_post' post_get.id%}" onclick="return confirmDeletion();"><button style="background-color: red;">Eliminar</button></a>
+        <a href="{% url 'edit_post' post_get.id%}"><button style="background-color: green;">Editar</button></a>
     {% endif %}
-    {{post_get.title}}
-    {{post_get.description}}
-    {{post_get.author.nombre}}
+    <h1>{{post_get.title}}</h1>
+    <span>{{post_get.date}}</span>
+    <p>{{post_get.description}}</p>
+    <a href="{% url 'profile' post_get.author.nombre %}">{{post_get.author.nombre}}</a>
     <img src="/media/{{post_get.image_banner}}">
     {{post_get.descripcion | safe}}
+    <ul>
+        {% for theme in post_get.tags_post.all %}
+            <a href="{% url 'sub_theme' theme.name %}"><li>{{theme.name}}</li></a>
+        {% empty %}
+            <li>Sin temas.</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

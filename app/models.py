@@ -28,7 +28,7 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    nombre = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=255, unique=True)
     descripcion = models.CharField(max_length=650)
     logo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True)
     is_active = models.BooleanField(default=True)
@@ -60,7 +60,7 @@ class mainThemes(models.Model):
     def __str__(self):
         return self.name
 
-class Themes(models.Model):
+class Tags(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=120)
 
@@ -76,11 +76,17 @@ class Posts(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     main_theme = models.ForeignKey(mainThemes, on_delete=models.DO_NOTHING, null=True)
-    theme = models.ManyToManyField(Themes)
+    tags_post = models.ManyToManyField(Tags, blank=True)
     featured = models.BooleanField(default=False)
     reads = models.IntegerField(default=0)
     descripcion = RichTextUploadingField()
 
+
+    def save(self, *args, **kwargs):
+        if self.featured:
+            Posts.objects.exclude(id=self.id).update(featured=False)
+        super().save(*args, **kwargs)
+    
     def __str__(self):
-        return f'Autor: {self.author.nombre}, Titulo: {self.title}'
+        return f'Vistas: {self.reads} Autor: {self.author.nombre}, Titulo: {self.title}'
     

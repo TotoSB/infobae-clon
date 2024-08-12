@@ -3,6 +3,6 @@ from .models import *
 
 # Register your models here.
 admin.site.register(CustomUser)
-admin.site.register(Themes)
+admin.site.register(Tags)
 admin.site.register(mainThemes)
 admin.site.register(Posts)

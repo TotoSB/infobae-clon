@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,10 +7,10 @@
 </head>
 <body>
     {% include "header.html" %}
-    <h3>{{user_get.nombre}}</h3>
-    <img src="/media/{{user_get.logo}}">
-    <p>{{user_get.email}}</p>
-    <p>{{user_get.descripcion}}</p>
-    <img>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        {{form.media}}
+        <input type="submit" value="Confirmar">
 </body>
 </html>

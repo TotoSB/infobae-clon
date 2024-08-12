@@ -9,12 +9,22 @@
 </head>
 <body>
     {% include "header.html" %}
-    <h1>Hola mundo</h1>
-    {% for post in posts %}
-        <h1>{{post.title}}</h1>
-        <img src="/media/{{post.image_banner}}">
-        <p>{{post.short_description}}</p>
-        <p>Por <b>{{post.author.nombre}}</b></p>
-    {% endfor %}
+    <main>
+        {% if title_subtheme %}
+            <h1>{{title_subtheme}}</h1>
+        {% else %}
+            <h1>{{title_theme}}</h1>
+        {% endif %}
+        {% for post in posts %}
+            <a href="{% url 'view_post' post.main_theme post.id %}">
+                <h2>{{post.title}}</h2>
+                <img src="/media/{{post.image_banner}}">
+                <p>{{post.short_description}}</p>
+                <p>Por <b>{{post.author.nombre}}</b></p>
+            </a>
+        {% empty %}
+            <p>No hay post con esta etiqueta</p>
+        {% endfor %}
+    </main>
 </body>
 </html>
