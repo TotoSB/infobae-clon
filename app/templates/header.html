@@ -53,22 +53,19 @@
             <a href="{% url 'cerrar' %}"><button class="btn">Cerrar sesion</button></a>
         </div>
     {% endif %}
-
-    <div>
-        <ul id="dollars">
-            {% for dolar in dollars %}
-                <li>{{ dolar.nombre }} <b>${{ dolar.venta }}</b></li>
-            {% empty %}
-                <li>No se encontraron datos.</li>
-            {% endfor %}
-        </ul>    
-    </div>   
 </header>
 <div class="cont-logo">
     <a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" id="logo"></a>
-    <div>
+    <div class="pop-tags">
         {% for tag in pop_tags %}
-            <a href="{% url 'sub_theme' tag.name %}">{{tag.name}}</a>
+            <a href="{% url 'sub_theme' tag.name %}" class="link-themes">{{tag.name}}</a>
         {% endfor %}
     </div>
+    <ul id="dollars">
+        {% for dolar in dollars %}
+            <li>{{ dolar.nombre }} <b>${{ dolar.venta }}</b></li>
+        {% empty %}
+            <li>No se encontraron datos.</li>
+        {% endfor %}
+    </ul>  
 </div>

@@ -162,7 +162,7 @@ body {
 #dollars {
     list-style: none;
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto;
 }
 
 #dollars li {
@@ -208,8 +208,24 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 10px;
 }
 
 #logo {
     width: 200px;
+}
+
+.pop-tags {
+    border-top: 1px solid #a3a3a3;
+    border-bottom: 1px solid #a3a3a3;
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+}
+
+.pop-tags a {
+    margin: 5px;
+    color: #858585;
+    padding: 5px;
+    font-weight: 400;
 }

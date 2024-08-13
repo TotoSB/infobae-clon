@@ -1,0 +1,15 @@
+main {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.cont-main {
+    width: 90%;
+    border-top: 1px solid #858585;
+    display: grid;
+}
+
+.post-img {
+    width: 200px;
+}
