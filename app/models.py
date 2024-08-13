@@ -5,6 +5,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 import os
+from PIL import Image
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
@@ -30,7 +31,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     nombre = models.CharField(max_length=255, unique=True)
     descripcion = models.CharField(max_length=650)
-    logo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True)
+    logo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True, null=True, default='default.jpg')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     groups = models.ManyToManyField(
@@ -51,6 +52,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.logo.path)
+
+        if img.height > 500 or img.width > 500:
+            output_size = (500, 500)
+            img.thumbnail(output_size)
+            img.save(self.logo.path)
     
 
 class mainThemes(models.Model):

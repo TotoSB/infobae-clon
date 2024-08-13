@@ -1,34 +1,59 @@
 {% load static %}
 <header>
-    <nav class="first-header">
-        <form action="{% url 'search_post' %}" method="post">
+    <script src="{% static 'js/header.js' %}"></script>
+    <div id="menu">
+        <div class="cont-menu">
+            <button onclick="hideMenu()" id="close"><i class="fa-solid fa-xmark"></i></button>
+            <form action="{% url 'search_post' %}" method="post">
                 {% csrf_token %}
                 <input type="text" name="q" id="q" placeholder="Buscar">
                 <button type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
-            <p id="fecha">{{today}}</p>
+        </div>
+        <div class="cont-menu-2">
+            {% for theme in all_themes %}
+                <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+            {% endfor %} 
+        </div>
+    </div>
+    <nav class="first-header">
+            <div class="first-cont-header">
+                <button onclick="showMenu()" id="search" class="first-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <p id="fecha">{{today}}</p>
+            </div>
             {% for theme in themes %}
                 <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
             {% endfor %}
             {% if user.is_authenticated %}
-            <ul>
-                {{user.nombre}}
-                {{user.email}}
-                <a><li>Mi perfil</li></a>
-                <a href="{% url 'cerrar' %}"><button>Cerrar sesion</button></a>
-            </ul>
+                <button onclick="showMenuUser()" id="btn-user">
+                    <img src="/media/{{user.logo}}" id="logo-user">
+                    {{user.nombre}}
+                </button>
             {% else %}
-            <a href="{% url 'registro' %}"><button class="register btn">Registrarme</button></a>
-            <a href="{% url 'login' %}"><button class="login btn">Iniciar sesion</button></a>
-            {% endif %}
-            {% if user.is_staff %}
-            <div>
-                <ul>
-                    <a href="{% url 'create_post' %}"><li>Crear noticia</li></a>
-                </ul>
-            </div>
+                <div>
+                    <a href="{% url 'registro' %}"><button class="register btn">Registrarme</button></a>
+                    <a href="{% url 'login' %}"><button class="login btn">Iniciar sesion</button></a>
+                </div>
             {% endif %}
     </nav>
+    {% if user.is_authenticated %}
+        <div id="menu-user">
+            <div class="cont-first-user">
+                <img src="/media/{{user.logo}}" id="logo-user">
+                <div>
+                    <p>{{user.nombre}}</p>
+                    <p>{{user.email}}</p>
+                </div>
+                <button onclick="hideMenUser()" id="close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <a href="{% url 'profile' user.nombre %}">Mi perfil</a>
+            {% if user.is_staff %}
+            <a href="{% url 'create_post' %}">Crear noticia</a>
+            {% endif %}
+            <a href="{% url 'cerrar' %}"><button class="btn">Cerrar sesion</button></a>
+        </div>
+    {% endif %}
+
     <div>
         <ul id="dollars">
             {% for dolar in dollars %}
@@ -39,4 +64,11 @@
         </ul>    
     </div>   
 </header>
-<a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" width="200"></a>
+<div class="cont-logo">
+    <a href="{% url 'index'%}"><img src="{% static 'images/logo.png' %}" id="logo"></a>
+    <div>
+        {% for tag in pop_tags %}
+            <a href="{% url 'sub_theme' tag.name %}">{{tag.name}}</a>
+        {% endfor %}
+    </div>
+</div>

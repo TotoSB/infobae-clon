@@ -48,6 +48,49 @@ body {
     color: #fff;
 }
 
+#menu {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: auto;
+    background-color: #f5f3f3;
+}
+
+.cont-menu {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.cont-menu-2 {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: stretch;
+    width: 100%;
+}
+
+.cont-menu-2 a {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#close {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0px solid transparent;
+}
+
+#close i {
+    font-size: 20px;
+    color: #616161;
+    transition: color 0.3s;
+}
+
+#close i:hover {
+    color: #000;
+}
+
 .link-themes {
     color: #000;
     text-decoration: none;
@@ -89,6 +132,31 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0px 2px 2px 2px rgb(207, 207, 207);
+}
+
+.first-cont-header {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+}
+
+#btn-user {
+    background-color: transparent;
+    border: 0px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    align-items: center;
+    display: flex;
+}
+
+#logo-user {
+    border: 2px solid var(--main);
+    border-radius: 50%;
+    width: 35px;
+    margin-right: 5px;
 }
 
 #dollars {
@@ -104,4 +172,44 @@ body {
     text-align: center;
     border: 1px solid #ccc;
     padding: 20px;
+}
+
+#menu-user {
+    position: absolute;
+    display: none;
+    background-color: #f5f3f3;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    font-family: "Roboto", sans-serif;
+}
+
+#menu-user a {
+    text-decoration: none;
+    color: #000;
+    padding: 5px 0px 5px 0px;
+}
+
+.cont-first-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cont-first-user p {
+    margin: 2px;
+}
+
+.cont-logo {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo {
+    width: 200px;
 }

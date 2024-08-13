@@ -3,25 +3,35 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import Posts, mainThemes, CustomUser, Tags
 from .forms import RegisterForm, LoginForm, PostsForm
 from datetime import datetime
+from django.db.models import Count, Sum
 import requests
 
 def get_global_data():
     response_dlls = requests.get("https://dolarapi.com/v1/dolares")
     data_dlls = response_dlls.json()
-    themes = mainThemes.objects.all()
+    themes = mainThemes.objects.annotate(
+        num_posts=Count('posts')
+    ).order_by('-num_posts')[:5]
+    all_themes = mainThemes.objects.all()
     today = datetime.now()
+    tags = Tags.objects.annotate(
+        total_reads=Sum('posts__reads')
+    ).order_by('-total_reads')[:5]
     formatted_date = today.strftime("%d %b, %Y").replace('Jan', 'Ene').replace('Feb', 'Feb').replace('Mar', 'Mar').replace('Apr', 'Abr').replace('May', 'May').replace('Jun', 'Jun').replace('Jul', 'Jul').replace('Aug', 'Ago').replace('Sep', 'Sep').replace('Oct', 'Oct').replace('Nov', 'Nov').replace('Dec', 'Dic')
     return {
         "themes": themes,
         'today': formatted_date,
-        "dollars": data_dlls
+        "dollars": data_dlls,
+        "all_themes": all_themes,
+        "pop_tags": tags,
     }
 
 def index(request):
     postings = Posts.objects.all()
     context = get_global_data()
     context.update({
-        "posts": postings
+        "posts": postings,
+
     })
     return render(request, "index.html", context)
 
