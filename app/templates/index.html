@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/c3ec7e34f1.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Hacemos periodismo - Infobae</title>
 </head>
 <body>
     {% include "header.html" %}
@@ -31,15 +31,15 @@
             {% endif %}
             <article class="article-ingrid">
                 <a href="{% url 'view_post' post.main_theme post.id %}">
-                    <h3 class="link-text">{{post.title}}</h3>
+                    <h3 class="link-text title-new">{{post.title}}</h3>
                     <img src="/media/{{post.image_banner}}" class="post-img">
                 </a>
             </article>
-            
             {% if forloop.counter|divisibleby:7 or forloop.last %}
                 </div>
             {% endif %}
         {% endfor %}
     </main>
+    {% include "footer.html" %}
 </body>
 </html>

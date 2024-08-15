@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 main {
     width: 100%;
     display: flex;
@@ -15,14 +19,15 @@ a {
     width: 90%;
     border-top: 1px solid #858585;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
-    grid-template-rows: auto auto auto;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     justify-content: center;
+    padding: 10px;
+    align-items: stretch;
 }
 
 .post-img {
-    width: 350px;
+    width: 100%;
 }
 
 .link-text {
@@ -45,4 +50,11 @@ a {
 
 .feat-img {
     width: 70%;
+}
+
+.title-new {
+    font-size: 16px;
+    height: 80px;
+    width: 100%;
+    text-align: left;
 }

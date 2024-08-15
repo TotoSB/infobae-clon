@@ -1,0 +1,48 @@
+{% load static %}
+<footer>
+    <div class="data-footer">
+        <div class="first-data-footer">
+            <img src="{% static 'images/logosvg.svg' %}" class="info-svg" alt="">
+            <p>Seguinos:</p>
+            <div class="grid-icons">
+                <a href="https://www.facebook.com/Infobae/">
+                    <i class="fa-brands fa-facebook-f icons-media"></i>
+                </a>
+                <a href="https://twitter.com/Infobae/">
+                    <i class="fa-brands fa-x-twitter icons-media"></i>
+                </a>
+                <a href="https://www.instagram.com/Infobae/">
+                    <i class="fa-brands fa-instagram icons-media"></i>
+                </a>
+                <a href="https://www.youtube.com/c/infobae">
+                    <i class="fa-brands fa-youtube icons-media"></i>
+                </a>
+                <a href="https://web.telegram.org/k/">
+                    <i class="fa-brands fa-telegram icons-media"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/infobae/">
+                    <i class="fa-brands fa-linkedin-in icons-media"></i>
+                </a>
+            </div>
+        </div>
+        <div class="second-data-footer">
+            <b>Secciones:</b>
+            <div class="sections-footer">
+                {% for theme in themes %}
+                    <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <b>Contactenos:</b>
+            <a href="">Contacto</a>
+            <a href="">Redaccion</a>
+            <a href="">Contacto Comercial</a>
+            <a href="">Media Kit</a>
+            <a href="">Empleo</a>
+        </div>
+    </div>
+    <div>
+        <p>Todos Los Derechos Reservados © 2024 Infobae</p>
+    </div>
+</footer>
