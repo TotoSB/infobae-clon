@@ -27,9 +27,16 @@ def get_global_data():
     }
 
 def index(request):
-    postings = Posts.objects.all()
+    postings = Posts.objects.filter(featured=False)
     context = get_global_data()
-    context.update({
+    try:
+        post_feat = Posts.objects.get(featured=True)
+        context.update({
+        "posts": postings,
+        "feat": post_feat
+        })
+    except Posts.DoesNotExist:
+        context.update({
         "posts": postings,
 
     })
