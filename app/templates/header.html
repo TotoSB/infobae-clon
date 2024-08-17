@@ -22,7 +22,7 @@
                 <p id="fecha">{{today}}</p>
             </div>
             {% for theme in themes %}
-                <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+                <a href="{% url 'theme' theme.name%}" class="link-themes nav-themes">{{theme.name}}</a>
             {% endfor %}
             {% if user.is_authenticated %}
                 <button onclick="showMenuUser()" id="btn-user">

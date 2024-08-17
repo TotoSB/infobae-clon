@@ -19,11 +19,16 @@ a {
     width: 90%;
     border-top: 1px solid #858585;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 20px;
     justify-content: center;
     padding: 10px;
     align-items: stretch;
+    
+}
+
+.article-ingrid {
+    width: auto;
 }
 
 .post-img {
@@ -54,7 +59,39 @@ a {
 
 .title-new {
     font-size: 16px;
-    height: 80px;
+    min-height: 70px;
     width: 100%;
     text-align: left;
+}
+
+@media (max-width:1115px){
+    .featured{
+        text-align: center !important;
+    }
+
+    .title-feat {
+        font-size: 35px;
+    }
+
+    .featured img {
+        width: 100%;
+    }
+
+    .pop-tags {
+        display: none;
+    }
+}
+
+@media (max-width:450px){
+    .featured {
+        text-align: left !important;
+    }
+
+    .title-feat {
+        font-size: 25px;
+    }
+
+    .featured p {
+        font-size: 17px;
+    }
 }

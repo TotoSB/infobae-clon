@@ -235,7 +235,12 @@ footer {
     padding: 50px 20px 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     width: 100vw;
+    font-family: "Roboto";
+    color: #fff;
 }
 
 .info-svg {
@@ -247,9 +252,13 @@ footer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
+    font-family: "Roboto";
+    color: #fff;
+    border-bottom: 1px solid #fff;
+    width: 70%;
 }
 
-.first-data-footer {
+.cont-data-footer {
     color: #fff;
     padding: 20px;
     display: flex;
@@ -294,6 +303,34 @@ footer {
     justify-content: space-between;
 }
 
-.sections-footer a {
+.footer-links {
     color: #fff;
+    margin-top: 8px;
+    font-weight: 400;
+    transition: none;
+    text-transform: capitalize;
+}
+
+@media (max-width:800px){
+    .data-footer {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+    }
+
+    .nav-themes {
+        display: none;
+    }
+
+}
+
+@media (max-width:450px){
+    .btn {
+        font-size: 10px;
+    }
+
+    #fecha {
+        display: none;
+    }
+
 }

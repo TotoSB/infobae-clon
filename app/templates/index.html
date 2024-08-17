@@ -25,20 +25,16 @@
                 <p class="link-text">Por: <b><a href="{% url 'profile' feat.author.nombre %}" class="link-text">{{feat.author.nombre}}</a></b></p>
             </article>
         {% endif %}
+        <div class="cont-main">
         {% for post in posts %}
-            {% if forloop.counter0|divisibleby:7 %}
-            <div class="cont-main">
-            {% endif %}
             <article class="article-ingrid">
                 <a href="{% url 'view_post' post.main_theme post.id %}">
                     <h3 class="link-text title-new">{{post.title}}</h3>
                     <img src="/media/{{post.image_banner}}" class="post-img">
                 </a>
             </article>
-            {% if forloop.counter|divisibleby:7 or forloop.last %}
-                </div>
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </div>
     </main>
     {% include "footer.html" %}
 </body>

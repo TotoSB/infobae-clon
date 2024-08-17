@@ -1,7 +1,7 @@
 {% load static %}
 <footer>
     <div class="data-footer">
-        <div class="first-data-footer">
+        <div class="cont-data-footer">
             <img src="{% static 'images/logosvg.svg' %}" class="info-svg" alt="">
             <p>Seguinos:</p>
             <div class="grid-icons">
@@ -25,24 +25,24 @@
                 </a>
             </div>
         </div>
-        <div class="second-data-footer">
+        <div class="cont-data-footer">
             <b>Secciones:</b>
             <div class="sections-footer">
                 {% for theme in themes %}
-                    <a href="{% url 'theme' theme.name%}" class="link-themes">{{theme.name}}</a>
+                    <a href="{% url 'theme' theme.name%}" class="footer-links">{{theme.name}}</a>
                 {% endfor %}
             </div>
         </div>
-        <div>
+        <div class="cont-data-footer">
             <b>Contactenos:</b>
-            <a href="">Contacto</a>
-            <a href="">Redaccion</a>
-            <a href="">Contacto Comercial</a>
-            <a href="">Media Kit</a>
-            <a href="">Empleo</a>
+            <a href="" class="footer-links">Contacto</a>
+            <a href="" class="footer-links">Redaccion</a>
+            <a href="" class="footer-links">Contacto Comercial</a>
+            <a href="" class="footer-links">Media Kit</a>
+            <a href="" class="footer-links">Empleo</a>
         </div>
     </div>
     <div>
-        <p>Todos Los Derechos Reservados © 2024 Infobae</p>
+        <p>Todos Los Derechos Reservados © 2024 Totobae</p>
     </div>
 </footer>
