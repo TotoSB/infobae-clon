@@ -1,4 +1,7 @@
 {% load static %}
+{% if user.is_authenticated %}
+<script src="{% static 'js/user_menu.js' %}"></script>
+{% endif %}
 <header>
     <script src="{% static 'js/header.js' %}"></script>
     <div id="menu">
@@ -7,7 +10,7 @@
             <form action="{% url 'search_post' %}" method="post">
                 {% csrf_token %}
                 <input type="text" name="q" id="q" placeholder="Buscar">
-                <button type="submit" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button type="submit" aria-label="search_post" id="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </div>
         <div class="cont-menu-2">
@@ -18,7 +21,7 @@
     </div>
     <nav class="first-header">
             <div class="first-cont-header">
-                <button onclick="showMenu()" id="search" class="first-search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button onclick="showMenu()" id="search" aria-label="search" class="first-search"><i class="fa-solid fa-magnifying-glass"></i></button>
                 <p id="fecha">{{today}}</p>
             </div>
             {% for theme in themes %}
@@ -44,7 +47,7 @@
                     <p>{{user.nombre}}</p>
                     <p>{{user.email}}</p>
                 </div>
-                <button onclick="hideMenUser()" id="close"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="hideMenUser()" aria-label="close_button" id="close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <a href="{% url 'profile' user.nombre %}">Mi perfil</a>
             {% if user.is_staff %}

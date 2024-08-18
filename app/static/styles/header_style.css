@@ -62,6 +62,10 @@ body {
     padding: 10px;
 }
 
+.cont-menu form{
+    margin-bottom: 0px;
+}
+
 .cont-menu-2 {
     display: flex;
     flex-direction: column;
@@ -333,4 +337,11 @@ footer {
         display: none;
     }
 
+    footer {
+        padding: 2px;
+    }
+
+    .cont-first-user div {
+        font-size: 11px;
+    }
 }

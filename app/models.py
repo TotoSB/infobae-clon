@@ -100,4 +100,3 @@ class Posts(models.Model):
     
     def __str__(self):
         return f'Vistas: {self.reads} Autor: {self.author.nombre}, Titulo: {self.title}'
-    
