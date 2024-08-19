@@ -42,7 +42,9 @@
                 {% endif %}
             </div>
             <img src="/media/{{ post_get.image_banner }}">
-            {{ post_get.descripcion | safe }}
+            <div class="new">
+                {{ post_get.descripcion | safe }}
+            </div>
             <h4><i class="fa-solid fa-plus"></i>Temas relacionados:</h4>
             <ul class="themes-post">
                 {% for theme in post_get.tags_post.all %}

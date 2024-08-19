@@ -61,9 +61,11 @@ def theme_view(request, theme_name):
 def profile(request, name_autor):
     try:
         profile_get = CustomUser.objects.get(nombre=name_autor)
+        posts_profile = Posts.objects.filter(author=profile_get)
         context = get_global_data()
         context.update({
-            'user_get': profile_get
+            'user_get': profile_get,
+            'posts_user': posts_profile
         })
         return render(request, "profile.html", context)
     except CustomUser.DoesNotExist:

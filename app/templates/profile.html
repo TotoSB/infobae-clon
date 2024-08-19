@@ -4,14 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% include "head_atts.html" %}
+    <link rel="stylesheet" href="{% static 'styles/author.css' %}">
+    <title>{{user_get.nombre}}</title>
 </head>
 <body>
     {% include "header.html" %}
-    <h3>{{user_get.nombre}}</h3>
-    <img src="/media/{{user_get.logo}}">
-    <p>{{user_get.email}}</p>
-    <p>{{user_get.descripcion}}</p>
-    <img>
+    <main>
+        <section id="cont-author">
+            <img src="/media/{{user_get.logo}}" id="profile-pic">
+            <h3>{{user_get.nombre}}</h3>
+            <p>{{user_get.email}}</p>
+            <p>{{user_get.descripcion}}</p>
+        </section>
+        <section id="cont-posts">
+        {% for post in posts_user %}
+            <article class="post">
+                <div class="text-cont">
+                    <h4>{{post.title}}</h4>
+                    <span>{{post.short_description}}</span>
+                </div>
+                <img src="/media/{{post.image_banner}}" class="post-img">
+            </article>
+        {% endfor %}
+        </section>
+    </main>
+    {% include "footer.html" %}
+
 </body>
 </html>

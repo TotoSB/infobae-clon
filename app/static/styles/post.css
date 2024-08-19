@@ -1,3 +1,8 @@
+body {
+    overflow-x: hidden;
+}
+
+
 * {
     font-family: "Roboto";
     text-decoration: none;
@@ -113,4 +118,21 @@
 
 .themes-post a {
     color: #000;
+}
+
+@media (max-width:600px){
+    .new img {
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #title {
+        font-size: 34px;
+    }
+}
+
+@media (max-width:400px){
+    #title {
+        font-size: 28px;
+    }
 }
