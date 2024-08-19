@@ -19,13 +19,15 @@
         </section>
         <section id="cont-posts">
         {% for post in posts_user %}
-            <article class="post">
-                <div class="text-cont">
-                    <h4>{{post.title}}</h4>
-                    <span>{{post.short_description}}</span>
-                </div>
-                <img src="/media/{{post.image_banner}}" class="post-img">
-            </article>
+            <a href="{% url 'view_post' post.main_theme post.id %}">
+                <article class="post">
+                    <div class="text-cont">
+                        <h4>{{post.title}}</h4>
+                        <span>{{post.short_description}}</span>
+                    </div>
+                    <img src="/media/{{post.image_banner}}" class="post-img">
+                </article>
+            </a>
         {% endfor %}
         </section>
     </main>

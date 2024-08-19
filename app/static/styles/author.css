@@ -2,6 +2,11 @@ body {
     overflow-x: hidden;
 }
 
+a {
+    color: #000;
+    text-decoration: none;
+}
+
 main {
     display: flex;
     justify-content: center;
@@ -43,7 +48,27 @@ main {
     width: 75%;
 }
 
+.text-cont h4 {
+    font-size: 24px;
+    margin: 12px;
+    margin-left: 0px;
+}
+
 .post img {
-    width: 25%;
-    height: auto;
+    width: 250px;
+    min-width: 250px;
+}
+
+@media (max-width:1000px){
+    .text-cont {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .post {
+        flex-wrap: wrap;
+    }
+
+    .post img {
+        width: 100%;
+    }
 }
