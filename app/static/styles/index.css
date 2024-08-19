@@ -19,7 +19,7 @@ a {
     width: 90%;
     border-top: 1px solid #858585;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 20px;
     justify-content: center;
     padding: 10px;

@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
-from .models import Posts, mainThemes, CustomUser, Tags
+from .models import Posts, mainThemes, CustomUser, Tags, SavedPost
 from .forms import RegisterForm, LoginForm, PostsForm
 from datetime import datetime
 from django.db.models import Count, Sum
 import requests
+from django.contrib.auth.decorators import login_required
+
 
 def get_global_data():
     # response_dlls = requests.get("https://dolarapi.com/v1/dolares")
@@ -135,9 +137,14 @@ def create_post(request):
 
 def view_post(request, theme_name, pk):
     post_get = get_object_or_404(Posts, id=pk)
+    is_saved = False
+
     if post_get.main_theme.name == theme_name:
         post_get.reads += 1
         context = get_global_data()
+        if request.user.is_authenticated:
+            is_saved = SavedPost.objects.filter(user=request.user, post=post_get).exists()
+            context['is_saved'] = is_saved
         context['post_get'] = post_get
         post_get.save()
         return render(request, 'post.html', context)
@@ -189,3 +196,15 @@ def subtheme_view(request, theme_name):
         return render(request, "theme.html", context)
     except Tags.DoesNotExist:
         return redirect('index')
+    
+@login_required
+def save_post(request, post_id):
+    post = get_object_or_404(Posts, id=post_id)
+    user = request.user
+
+    saved_post, created = SavedPost.objects.get_or_create(user=user, post=post)
+
+    if not created:
+        saved_post.delete()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))

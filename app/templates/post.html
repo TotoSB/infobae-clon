@@ -1,30 +1,58 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="{% static 'js/delete_post.js' %}"></script>
-    <title>{{post_get.title}}</title>
+    {% include "head_atts.html" %}
+    <link rel="stylesheet" href="{% static 'styles/post.css' %}">
+    <title>{{ post_get.title }}</title>
 </head>
 <body>
     {% include "header.html" %}
-    {% if post_get.author == user %}
-        <a href="{% url 'delete_post' post_get.id%}" onclick="return confirmDeletion();"><button style="background-color: red;">Eliminar</button></a>
-        <a href="{% url 'edit_post' post_get.id%}"><button style="background-color: green;">Editar</button></a>
-    {% endif %}
-    <h1>{{post_get.title}}</h1>
-    <span>{{post_get.date}}</span>
-    <p>{{post_get.description}}</p>
-    <a href="{% url 'profile' post_get.author.nombre %}">{{post_get.author.nombre}}</a>
-    <img src="/media/{{post_get.image_banner}}">
-    {{post_get.descripcion | safe}}
-    <ul>
-        {% for theme in post_get.tags_post.all %}
-            <a href="{% url 'sub_theme' theme.name %}"><li>{{theme.name}}</li></a>
-        {% empty %}
-            <li>Sin temas.</li>
-        {% endfor %}
-    </ul>
+    <section class="section-post">
+        <div class="cont-post">
+            <a href="{% url 'theme' post_get.main_theme %}" class="theme-link">{{ post_get.main_theme }} ></a>
+            <h1 id="title">{{ post_get.title }}</h1>
+            <p class="description">{{ post_get.short_description }}</p>
+            <div id="cont-author">
+                <img src="/media/{{ post_get.author.logo }}" class="logo-author" alt="author-pic">
+                <a href="{% url 'profile' post_get.author.nombre %}">Por: <b>{{ post_get.author.nombre }}</b></a>
+            </div>
+            {% if post_get.author == user %}
+                <div>
+                    <a href="{% url 'delete_post' post_get.id %}" onclick="return confirmDeletion();"><button class="btn-author dlt">Eliminar</button></a>
+                    <a href="{% url 'edit_post' post_get.id %}"><button class="btn-author edit">Editar</button></a>
+                </div>
+            {% endif %}
+            <div class="date-save">
+                <span>{{ post_get.date|date:"d M, Y H:i a" }} AR</span>
+                {% if user.is_authenticated %}
+                <form action="{% url 'save_post' post_get.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="save-button">
+                        {% if is_saved %}
+                            <i class="fa-solid fa-bookmark" style="color: #444444;"></i> Guardado
+                        {% else %}
+                            <i class="fa-solid fa-bookmark"></i> Guardar
+                        {% endif %}
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+            <img src="/media/{{ post_get.image_banner }}">
+            {{ post_get.descripcion | safe }}
+            <h4><i class="fa-solid fa-plus"></i>Temas relacionados:</h4>
+            <ul class="themes-post">
+                {% for theme in post_get.tags_post.all %}
+                    <a href="{% url 'sub_theme' theme.name %}"><li>{{ theme.name }}</li></a>
+                {% empty %}
+                    <li>Sin temas.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    {% include "footer.html" %}
 </body>
 </html>

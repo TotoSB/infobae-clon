@@ -344,4 +344,12 @@ footer {
     .cont-first-user div {
         font-size: 11px;
     }
+
+    .pop-tags {
+        display: none !important;
+    }
+
+    #dollars {
+        padding: 0px;
+    }
 }

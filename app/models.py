@@ -100,3 +100,8 @@ class Posts(models.Model):
     
     def __str__(self):
         return f'Vistas: {self.reads} Autor: {self.author.nombre}, Titulo: {self.title}'
+
+class SavedPost(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True)
