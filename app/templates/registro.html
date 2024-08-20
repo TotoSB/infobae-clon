@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% include "head_atts.html" %}
+    <link rel="stylesheet" href="{% static 'styles/registro.css' %}">
+    <title>Registro</title>
+
 </head>
 <body>
     {% include "header.html" %}
-    <h1>Registro</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrarse</button>
-    </form>
+    <main>
+        <h1>Registro</h1>
+        <form method="post" id="log-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrarse</button>
+        </form>
+    </main>
+    {% include "footer.html" %}
 </body>
 </html>

@@ -1,0 +1,45 @@
+body {
+    overflow-x: hidden;
+}
+
+main {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#log-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+#log-form input {
+    border-radius: 30px;
+    padding: 7px;
+    border: 1px solid #ccc;
+    font-size: 20px;
+}
+
+#log-form button {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid #F68E1E;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+#log-form div {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#log-form button:hover {
+    background-color: #ccc;
+    border: 1px solid transparent;
+}

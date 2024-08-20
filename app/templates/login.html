@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Iniciar Sesion</title>
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+    {% include "head_atts.html" %}
 </head>
 <body>
     {% include "header.html" %}
-    <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Iniciar sesion</button>
-    </form>
+    <main>
+        <h1>Iniciar sesion</h1>
+        <form method="post" id="log-form">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Iniciar sesion</button>
+        </form>
+    </main>
+    {% include "footer.html" %}
 </body>
 </html>

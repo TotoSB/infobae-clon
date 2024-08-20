@@ -4,8 +4,10 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "head_atts.html" %}
     <link rel="stylesheet" href="{% static 'styles/header_style.css' %}">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'styles/theme.css' %}">
+    <title>Infobae {{title_theme}} - Infobae</title>
 </head>
 <body>
     {% include "header.html" %}
@@ -15,16 +17,23 @@
         {% else %}
             <h1>{{title_theme}}</h1>
         {% endif %}
+        <section class="cont-posts">
         {% for post in posts %}
             <a href="{% url 'view_post' post.main_theme post.id %}">
-                <h2>{{post.title}}</h2>
-                <img src="/media/{{post.image_banner}}">
-                <p>{{post.short_description}}</p>
-                <p>Por <b>{{post.author.nombre}}</b></p>
+                <article class="post">
+                    <div class="text-cont">
+                        <h4>{{post.title}}</h4>
+                        <p>{{post.short_description}}</p>
+                        <p>Por <b>{{post.author.nombre}}</b></p>
+                    </div>
+                    <img src="/media/{{post.image_banner}}" class="post-img">
+                </article>
             </a>
         {% empty %}
-            <p>No hay post con esta etiqueta</p>
+        <p>No hay post con esta etiqueta</p>
         {% endfor %}
+        <section>
     </main>
+    {% include "footer.html" %}
 </body>
 </html>
