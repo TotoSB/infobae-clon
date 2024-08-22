@@ -210,3 +210,12 @@ def save_post(request, post_id):
         saved_post.delete()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required
+def bookmarks(request):
+    usuario = request.user
+    context = get_global_data()
+    guardados = SavedPost.objects.filter(user=usuario)
+    context['guardados'] = guardados
+
+    return render(request, "bookmark.html", context)

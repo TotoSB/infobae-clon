@@ -50,6 +50,7 @@
                 <button onclick="hideMenUser()" aria-label="close_button" id="close"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <a href="{% url 'profile' user.nombre %}">Mi perfil</a>
+            <a href="{% url 'guardados' %}">Guardados</a>
             {% if user.is_staff %}
             <a href="{% url 'create_post' %}">Crear noticia</a>
             {% endif %}

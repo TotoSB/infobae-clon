@@ -1,0 +1,62 @@
+body {
+    overflow-x: hidden;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+#form-create {
+    width: 90%;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#form-create input {
+    padding: 10px 3px 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+
+#form-create input:hover {
+    border: 1px solid #F68E1E;
+}
+
+#form-create input:focus {
+    background-color: #f5f5f5;
+}
+
+#form-create p {
+    display: flex;
+    margin: 15px;
+    flex-direction: column;
+}
+
+#form-create label {
+    font-weight: bold;
+}
+
+#id_image_banner {
+    border: 0px solid transparent !important;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #F68E1E;
+}
+
+#form-create input[type="submit"] {
+    cursor: pointer;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "head_atts.html" %}
+    <link rel="stylesheet" href="{% static 'styles/guardados.css' %}">
+    <title>Guardados - Infobae</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <main>
+        {% if guardados %}
+        <section>
+            {% for guardado in guardados %}
+            <article>
+                <a href="{% url 'view_post' guardado.post.main_theme guardado.post.id %}" class="link-new">
+                    <img src="/media/{{guardado.post.image_banner}}" class="img-book">
+                    <div>
+                        <h5 class="title">{{guardado.post.title}}</h5>
+                        <p>{{guardado.post.short_description}}</p>
+                    </div>
+                </a>
+                <a href="{% url 'save_post' guardado.post.id %}" class="btn-icon"><i class="fa-solid fa-bookmark"></i></a>
+            </article>
+            {% endfor %}
+        </section>
+        {% else %}
+            <h2>No tenes noticias guardadas, agrega noticias para que te aparezcan en esta seccion</h2>
+        {% endif %}
+    </main>
+    {% include "footer.html" %}
+</body>
+</html>

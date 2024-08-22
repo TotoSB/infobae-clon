@@ -1,16 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% include "head_atts.html" %}
+    <link rel="stylesheet" href="{% static 'styles/create_post.css' %}">
+    <title>Editar post</title>
 </head>
 <body>
     {% include "header.html" %}
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" id="form-create">
         {% csrf_token %}
         {{form.as_p}}
         {{form.media}}
         <input type="submit" value="Confirmar">
+    </form>
+    {% include "footer.html" %}
 </body>
 </html>

@@ -18,16 +18,18 @@ class LoginForm(forms.Form):
 class PostsForm(forms.ModelForm):
     new_tags = forms.CharField(
         required=False,
+        label="Nuevas etiquetas:",
         help_text='Introduce nuevos tags separados por comas.'
     )
     new_main_theme = forms.CharField(
         required=False,
+        label="Nuevo tema:",
         help_text='Introduce un nuevo tema principal si no está en la lista.'
     )
     main_theme = forms.ModelChoiceField(
         queryset=mainThemes.objects.all(),
+        label="Tema principal:",
         required=False,  # Permite dejarlo en blanco si se introduce un nuevo tema
-        help_text='Selecciona un tema principal o introduce uno nuevo.'
     )
 
     class Meta:

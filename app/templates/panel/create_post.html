@@ -4,14 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'styles/create_post.css' %}">
+    {% include "head_atts.html" %}
+    <title>Crear post</title>
 </head>
 <body>
     {% include "header.html" %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{form.as_p}}
-        {{form.media}}
-        <input type="submit" value="Crear">
+    <main>
+        <form method="post" enctype="multipart/form-data" id="form-create">
+            {% csrf_token %}
+            {{form.as_p}}
+            {{form.media}}
+            <input type="submit" value="Crear">
+        </form>
+    </main>
+    {% include "footer.html" %}
 </body>
 </html>
