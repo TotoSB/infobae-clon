@@ -82,7 +82,7 @@ class Tags(models.Model):
 class Posts(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=150)
-    image_banner = models.ImageField(upload_to="posts/%Y/%m/%d/")
+    image_banner = models.ImageField(upload_to="uploads/%Y/%m/%d/")
     short_description = models.CharField(max_length=400)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
