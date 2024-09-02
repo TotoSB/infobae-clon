@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def get_global_data():
-    # response_dlls = requests.get("https://dolarapi.com/v1/dolares")
-    # data_dlls = response_dlls.json()
+    response_dlls = requests.get("https://dolarapi.com/v1/dolares")
+    data_dlls = response_dlls.json()
     themes = mainThemes.objects.annotate(
         num_posts=Count('posts')
     ).order_by('-num_posts')[:5]
@@ -23,7 +23,7 @@ def get_global_data():
     return {
         "themes": themes,
         'today': formatted_date,
-        # "dollars": data_dlls,
+        "dollars": data_dlls,
         "all_themes": all_themes,
         "pop_tags": tags,
     }
