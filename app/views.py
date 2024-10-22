@@ -219,3 +219,10 @@ def bookmarks(request):
     context['guardados'] = guardados
 
     return render(request, "bookmark.html", context)
+
+def usuarios(request):
+    context = get_global_data()
+    context.update({
+        'usuarios': CustomUser.objects.all
+    })
+    return render(request, "usuarios.html", context)

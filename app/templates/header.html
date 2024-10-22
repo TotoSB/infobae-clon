@@ -53,6 +53,7 @@
             <a href="{% url 'guardados' %}">Guardados</a>
             {% if user.is_staff %}
             <a href="{% url 'create_post' %}">Crear noticia</a>
+            <a href="{% url 'usuarios' %}">Dar de alta usuario</a>
             {% endif %}
             <a href="{% url 'cerrar' %}"><button class="btn">Cerrar sesion</button></a>
         </div>
