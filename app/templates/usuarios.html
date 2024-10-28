@@ -3,16 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% include "head_atts.html" %}
+    <title>Usuarios</title>
 </head>
 <body>
+    {% load static %}
+    {% include "header.html" %}
+    {% if user.is_staff %}
+
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
     <ul>
         {% for usuario in usuarios %}
             <li>
                 {{ usuario.username }} - {{ usuario.email }}
-                <input type="checkbox" {% if usuario.is_staff %}checked{% endif %} disabled>
+                {% if usuario.is_staff %}
+                    <a href="{% url 'make_staff' usuario.id %}">Sacar permisos</a>
+                {% else %}
+                    <a href="{% url 'make_staff' usuario.id %}">Otorgar permiso</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <h1>Acceso denegado para usuario no administrador</h1>
+    {% endif %}
+    {% include "footer.html" %}
 </body>
 </html>

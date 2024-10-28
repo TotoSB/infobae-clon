@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login, logout
 from .models import Posts, mainThemes, CustomUser, Tags, SavedPost
 from .forms import RegisterForm, LoginForm, PostsForm
+from django.contrib.auth import login as auth_login
 from datetime import datetime
 from django.db.models import Count, Sum
+from django.contrib import messages
+
 import requests
 from django.contrib.auth.decorators import login_required
 
@@ -73,13 +76,23 @@ def profile(request, name_autor):
 
 def register(request):
     context = get_global_data()
+    
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        
         if form.is_valid():
-            form.save()
-            return redirect('index')
+            user = form.save()
+
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(email=email, password=password)
+
+            if user is not None:
+                auth_login(request, user)
+                return redirect('index')
     else:
         form = RegisterForm()
+
     context['form'] = form
     return render(request, 'registro.html', context)
 
@@ -226,3 +239,13 @@ def usuarios(request):
         'usuarios': CustomUser.objects.all
     })
     return render(request, "usuarios.html", context)
+
+def make_staff(request, usuario_id):
+    user_get = CustomUser.objects.get(id=usuario_id)
+    if user_get.is_staff:
+        user_get.is_staff = False
+        messages.success(request, f"El usuario {user_get.username} ya no es staff.")
+    else:
+        user_get.is_staff = True
+        messages.success(request, f"El usuario {user_get.username} ahora es staff.")
+    return redirect('usuarios')
