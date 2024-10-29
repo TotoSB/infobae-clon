@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles/usuarios.css' %}">
     {% include "head_atts.html" %}
     <title>Usuarios</title>
 </head>
 <body>
-    {% load static %}
     {% include "header.html" %}
     {% if user.is_staff %}
 
@@ -17,16 +18,15 @@
         </div>
     {% endfor %}
     
-    <ul>
         {% for usuario in usuarios %}
-            <li>
-                {{ usuario.username }} - {{ usuario.email }}
-                {% if usuario.is_staff %}
-                    <a href="{% url 'make_staff' usuario.id %}">Sacar permisos</a>
-                {% else %}
-                    <a href="{% url 'make_staff' usuario.id %}">Otorgar permiso</a>
-                {% endif %}
-            </li>
+                <div class="cont-user">
+                    {{ usuario.username }} - {{ usuario.email }}
+                    {% if usuario.is_staff %}
+                        <a href="{% url 'make_staff' usuario.id %}" class="sacar">Sacar permisos</a>
+                    {% else %}
+                        <a href="{% url 'make_staff' usuario.id %}" class="otorgar">Otorgar permiso</a>
+                    {% endif %}
+                </div>
         {% endfor %}
     </ul>
     {% else %}

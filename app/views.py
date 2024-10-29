@@ -244,8 +244,9 @@ def make_staff(request, usuario_id):
     user_get = CustomUser.objects.get(id=usuario_id)
     if user_get.is_staff:
         user_get.is_staff = False
-        messages.success(request, f"El usuario {user_get.username} ya no es staff.")
+        messages.success(request, f"El usuario {user_get.nombre} ya no es staff.")
     else:
         user_get.is_staff = True
-        messages.success(request, f"El usuario {user_get.username} ahora es staff.")
+        messages.success(request, f"El usuario {user_get.nombre} ahora es staff.")
+    user_get.save()
     return redirect('usuarios')

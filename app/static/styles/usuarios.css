@@ -1,0 +1,19 @@
+.cont-user {
+    margin: 20px;
+}
+
+.otorgar {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0f0;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.sacar {
+    color: #fff;
+    text-decoration: none;
+    background-color: #f00;
+    border-radius: 30px;
+    padding: 10px;
+}
